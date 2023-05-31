@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <title>Change Password Page</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="../style/style.css">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    </head>
+
+    <body style="background-color:rgba(216, 168, 106, 0.514)">
+        <form method ="post" action ="/forgotPage/<%=email%>" id="forgot">
+            <h2 style="margin-bottom: 10px;">Change Password</h2>
+            <input type="password" name="newPassword"  placeholder="Please Enter New Password" required> <br>
+            <input type="password" name="confPassword"  placeholder="Please Confirm New Password" required> <br>
+            
+            <% if(error){ %>
+                <strong><span id="err" style="color: rgb(230, 43, 43);"><%=error%></span></strong>
+                <br>
+            <% } %> 
+
+            <input type="submit" class="btn btn-success" style="margin-bottom:10px; display: inline-block;"  value="Change Password">
+        </form>
+    </body>
+        
+</html>

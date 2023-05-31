@@ -1,0 +1,42 @@
+<div class="header">
+    <strong><h4 id="userHead" style="float: left; color: white;">
+        Welcome <%= name %>
+    </h4></strong>
+    
+    <div style="float:right; display: flex;">
+          <a href="./forgotPage/<%=email %>"> <span class="fa-passwd-reset fa-stack">
+          <i class="fa fa-undo fa-stack-2x"></i>
+          <i class="fa fa-lock fa-stack-1x"></i></span> </a>
+
+        <a href="./" id="home"><i class="material-icons" style="font-size: 25px;">home</i></a>
+        <a href = "./addProd"><i class="fa fa-plus" aria-hidden="true"></i></a>
+        <a href="./details" id="profile"></a>
+        <a href="./logout" class="btn btn-danger" id="logout">Logout</a>
+    </div>
+  </div>
+    
+  <br><br><br>
+    
+  <script>
+    var profile = document.getElementById("profile");
+    var logout = document.getElementById("logout");
+  
+    // setting up header
+
+  
+    logout.style.display = "inline";
+
+    var img = document.createElement('img');
+    img.style.width = '25px';
+    img.style.borderRadius = '50%';
+    img.setAttribute('src','<%= pic %>');
+    img.setAttribute('alt','Profile Pic');
+
+    profile.append(img);
+    profile.style.display = "inline";
+
+    
+  
+  </script>
+    
+    

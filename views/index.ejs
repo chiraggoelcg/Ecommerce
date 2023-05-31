@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <title>E-Commerce</title>
+      <link rel="stylesheet" href="../style/style.css">
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+      <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  </head>
+  
+  <body>
+    <!-- header file linked -->
+    <%- include("partials/header" ,{name: user.username , pic: user.profile_pic,email:user.email}) %> 
+    <h3 align="center">Home</h3>
+    <div id="main">
+      <% products.forEach( function(product) { %>
+        <div class="card" id="<%= product._id %>">
+          <img src="<%= product.pic %>" class="card-img-top" alt="<%=product.name%>">
+          <div class="card-body">
+            <h3 class="card-title"><%= product.name %></h3>
+            <p class="card-text">Price : <%= product.price %></p>
+            <%if(!added.includes(product._id)) {%>
+              <a id="<%= product._id %>" onclick="cart(this.id)"  class="btn btn-success <%= product._id %>">Add to cart</a>
+            <%} else {%>
+              <a id="<%= product._id %>" onclick="cart(this.id)" class="btn btn-danger <%= product._id %>">Remove from cart</a>
+            <% } %> 
+              <a id="<%= product._id %>" onclick="desc(this.id)" class="btn btn-info">View Desc</a>
+          </div>
+        </div>
+      <% }) %>
+      <div>
+        <br>
+        <% if(flag){ %>
+          <button><a href="/load" class="btn btn-primary" >Load more</a></button>
+        <% } %>
+      </div>
+    </div>
+
+    <div class="modal">
+      <div id="item-desc" class="flex-container-center">
+        <h2>Product Description</h2>
+        <span id="close">&times;</span>
+        <br>
+        <hr>
+        <img id="item-img" src="" alt="Product Image">
+        <br><br>
+        <p id="desc"></p>
+        <br>
+        <button class="desc-button btn-success"></button>
+      </div>
+    </div>
+  </body>
+
+  <script>
+    //adding and removing from cart
+    var logged_in= '<%= user.username %>';
+    function cart(id)
+    {
+      try
+      {
+        console.log(id)
+        id = id[0].attributes[1].nodeValue;
+        console.log(id,"sdnb")
+      }
+      catch
+      {
+        id = id; //remains same
+        console.log(id)
+      }
+      if(logged_in)
+      {   
+        var request = new XMLHttpRequest();
+        request.open('POST','/cart');
+        request.setRequestHeader("Content-type","application/json");
+        request.send(JSON.stringify({id: id}));
+
+        request.onload = function()
+        {
+          var status = request.status;
+          var str = JSON.parse(request.response);
+          var node = document.getElementsByClassName(id)[0];
+          console.log(str,node,status);
+          if(status === 200)
+          {
+            if(str.message === "successfully added")
+            {
+              node.setAttribute("class","btn btn-danger "+id);
+              node.innerHTML = "Remove from cart";
+            }
+            else
+            {
+              node.setAttribute("class","btn btn-success "+id);
+              node.innerHTML = "Add to cart";
+            }
+                // set_desc_button(str.add, id);
+          }
+          else if(status === 598 || status === 599){
+              alert(str.message);
+          }
+        }
+      }
+      else
+      {
+        alert('You have to login for this');
+        location.href = "/login";
+      }
+    }
+  </script>
+  <script src = "/scripts/index.js"> </script>
+
+</html>

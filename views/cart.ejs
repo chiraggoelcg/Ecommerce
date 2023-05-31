@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="style/style.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+        <title>E-commerce</title>
+    </head>
+
+    <body>
+        <%- include("partials/header" ,{name: user.username , pic: user.profile_pic,email:user.email}) %>     
+        <h3 align="center">Cart</h3>
+
+        <% if(!products.length) {%>
+            <h2 style="color: grey; text-align:center; margin: 8%;">No data found. Add some products to cart.</h2>
+        <% } else { %> 
+            <div> 
+            <button class="btn btn-success" onclick = "checkOut();" style="float:right; margin-right: 5%; ">Checkout</button>
+            <br>
+            </div>
+            <div id="main_cart">
+                <% products.forEach( function(product) { %>
+                    <div class="card" id="<%=  product._id  %>">
+                        <img src="<%=  product.pic %>" class="card-img-top" alt="<%= product.name %>">
+                        <div class="card-body">
+                            <h3 class="card-title"><%= product.name %></h3>
+                            <p class="card-text">Price : <%= product.price %></p>
+                            <div>
+                                <p class="card-text" style="float: left;">Quantity : <span id="<%=  product._id %>qty"><%= product.qty %></span></p>
+                                <div>
+                                    <button id="<%=  product._id %>" class="btn btn-primary" onclick="plus(this.id)" style="margin-left: 12px;">&plus;</button>
+                                    <button id="<%=  product._id %>" class="btn btn-primary" onclick="minus(this.id)" style="margin-left: 8px;">&minus;</button>
+                                </div>
+                            </div>
+                            <br>
+                            <a id="<%=  product._id %>" onclick="removeCart(this.id)" class="btn btn-danger %>">Remove from cart</a>
+                            <a id="<%=  product._id %>" onclick="desc(this.id)" class="btn btn-info">View Desc</a>
+                        </div>
+                    </div>
+                <% }) %>
+            </div>
+        <% } %>
+        <div class="modal">
+            <div id="item-desc" class="flex-container-center">
+                <h2>Product Description</h2>
+                <span id="close">&times;</span>
+                <br>
+                <hr>
+                <img id="item-img" src="" alt="Product Image">
+                <br><br>
+                <p id="desc"></p>
+                <button class="desc-button btn-success"></button>
+            </div>
+        </div>
+    </body>
+    <script src="scripts/cart.js"></script>
+</html>

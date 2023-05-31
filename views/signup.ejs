@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title> Create New Account </title>  
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../style/style.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  </head>
+  
+  <body style="background-color:rgba(216, 168, 106, 0.514)">
+    <form id="register" method ="post" action ="/signup" enctype='multipart/form-data'>
+      <h2>Register</h2>
+      <input type="text" name="username" id="name" placeholder="Enter your name" required><br/>
+      <input type="email" name="email" id="email" placeholder="Enter your email" required><br/>
+      <input type="password" name="password" id="password" placeholder="Enter your password" required><br/>
+      <label for="profile_pic">Profile</label>
+      <input type="file" name="Profile_Pic" id="pic" accept="image/*" required><br><br>
+      <% if(error){ %>
+        <strong><span id="err" style="color: rgb(230, 43, 43);"><%=error%></span></strong>
+        <br><br>
+      <% } %>
+      <input type='submit'  class="btn btn-success"  style="margin-bottom:10px;" value="Register">
+      <a href="/" class="btn btn-primary" style="margin-top: -10px; margin-left: 3%;">Home</a><br>
+      Have an account? <a href="/login" style="cursor: pointer; color:rgb(28, 119, 238);">Login</a>
+    </form>
+  </body>
+</html>

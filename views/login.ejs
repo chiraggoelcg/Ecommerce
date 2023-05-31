@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <title>Login Page</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="../style/style.css">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    </head>
+    
+    <body style="background-color:rgba(216, 168, 106, 0.514)">
+        <%if(!flag){%>
+        <form id="loginUser" method ="post" action ="/login">
+            <h2 style="margin-bottom: 10px;">Login</h2>
+            <input type="email" name="email"  placeholder="Enter your email" required> <br/>
+            <input type="password" name="password" placeholder="Enter your password" required><br/>
+            <% if(error){ %>
+                <strong><span id="err" style="color: rgb(230, 43, 43);"><%=error%></span></strong>
+                <br><br>
+            <% } %> 
+            <input type="submit" class="btn btn-success" style="margin-bottom:10px; display: inline-block;" type="submit" value="Login">
+            <a href="/forgot" class="btn btn-primary" style="margin-top: -10px; margin-left: 3%;">Forgot Password</a><br>
+            Don't have account? <a href="/signup" style="cursor: pointer; color:rgb(28, 119, 238);">Register here</a>
+        </form>
+        <%}else{%>
+            <div id="detUser">
+                <h2 style="margin-bottom: 10px;">Details</h2>
+                <img src="<%= pic %>" alt="Profile Pic" style="display: block; margin: 0 auto; border-radius: 50%; width: 100px;"> 
+                <strong><label for="name">Name</label></strong>
+                <input type="text" value="<%= name %>" disabled><br/>
+                <strong><label for="email">E-Mail</label></strong>
+                <input type="email" value="<%= email %>" disabled> <br/>
+                <a class="btn btn-success" href="/" style="margin-bottom:10px;">Home</a><br>
+            </div>
+        <%}%>
+    </body>
+
+</html>
